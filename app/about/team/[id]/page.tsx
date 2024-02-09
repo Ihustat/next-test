@@ -1,30 +1,19 @@
-import { Metadata } from "next"
+'use client'
 
-
-type Props = {
-    params: {
-        id: string
-    }
-}
+import { useEffect } from 'react';
+import { useUserStore } from '@/app/store';
+import { Props } from '@/app/types';
 
 
 
-async function getUser (id: string) {
-    const response = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+export default  function Team({params: {id}} : Props) {
+    const name = useUserStore((state) => state.name);
+    const fetchUser = useUserStore((state) => state.fetchUser);  
 
-    return response.json()
-}
+    useEffect(() => {
+        fetchUser(id);
+      }, []);
 
-export async function generateMetadata({params: {id}} : Props): Promise<Metadata> {
-    const user = await getUser(id)
-    return {
-        title: `About | Team | ${user.name}`,
-    }
-}
-
-export default async function Team({params: {id}} : Props) {
-
-    const user = await getUser(id)
-    return  <div>{user.name}</div>
+    return  <div>{name}</div>
 
 }

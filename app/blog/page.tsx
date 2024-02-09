@@ -1,35 +1,26 @@
+'use client'
 
-import {Metadata} from 'next'
+import { useEffect } from 'react'
 import Link from 'next/link'
+import { usePostsStore } from '@/app/store';
+import { Post } from '../types';
 
-type Post = {
-    id: number,
-    title: string
-}
 
-async function getData () {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-            next: {
-                revalidate: 60
-            }
-        })
 
-        if(!response.ok) throw new Error('Something gone wrong')
 
-        return response.json()
-}
+export default  function Blog() {
+    const posts = usePostsStore(state => state.posts)
+    const fetchPosts = usePostsStore(state => state.fetchPosts)
 
-export const metadata: Metadata = {
-    title: 'Blog page'
-}
 
-export default async function Blog() {
-
-    const posts = await getData()
+    useEffect(() => {
+        fetchPosts()
+    })
+    
     return (
         <>
     <h1 className='blog-title'>Blog page</h1>
-    <ul className='list'>
+    <ul>
         
         {posts.map((post: Post) => (
             <li key={post.id}>

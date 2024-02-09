@@ -1,40 +1,37 @@
-import { Metadata } from "next";
-import Link from "next/link";
+'use client'
+
+import { useEffect } from 'react';
+import Link from 'next/link';
+import { useUsersStore } from '@/app/store';
 
 type User = {
-    name: string,
-    email: string,
-    id: number
-}
+  name: string;
+  email: string;
+  id: number;
+};
 
-export const metadata: Metadata = {
-    title: "About | Team",
-  };
 
- async function getUsers() {
-    const response = await fetch('https://jsonplaceholder.typicode.com/users')
+export default function Team() {
+  const users = useUsersStore((state) => state.users);
+  const fetchUsers = useUsersStore((state) => state.fetchUsers);
 
-    return response.json()
-  }
-  
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
-export default async function Team() {
-    const users = await getUsers() 
-    return (
-        <>
-        <h3>Our team</h3>
-        <ul>
+  return (
+    <>
+      <h3>Our team</h3>
+      <ul>
         {users.map((user: User) => (
-            <li key={user.id}>
-                <Link href={`/about/team/${user.id}`}>
-                    <div>Name: {user.name}</div>
-                    <div>email: {user.email}</div>
-                </Link>
-            </li>
+          <li key={user.id}>
+            <Link href={`/about/team/${user.id}`}>
+              <div>Name: {user.name}</div>
+              <div>Email: {user.email}</div>
+            </Link>
+          </li>
         ))}
-        </ul>
-        </>
-
-
-    )
+      </ul>
+    </>
+  );
 }
