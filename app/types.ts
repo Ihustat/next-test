@@ -4,13 +4,14 @@ export type UserState = {
 }
 
 export type UsersState = {
-  users: [];
+  users: [],
+
   fetchUsers: () => Promise<void>;
 };
 
 export type PostsState = {
     posts: [],
-    fetchPosts: () => Promise<void>;
+    fetchPosts: () => void;
 }
 
 export type PostState = {
@@ -32,3 +33,15 @@ export type Post = {
     id: number,
     title: string
 }
+
+export type IdProps = {
+    id: number
+}
+
+
+
+export type User = {
+    name: string;
+    email: string;
+    id: number;
+  };
