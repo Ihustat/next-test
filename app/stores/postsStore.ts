@@ -15,6 +15,7 @@ export const usePostsStore = create<PostsState>((set) => ({
         console.error('Error fetching users:', error);
       } 
     },
+
   }));
 
 
@@ -34,4 +35,11 @@ export const usePostsStore = create<PostsState>((set) => ({
           console.error('Error fetching users:', error);
         }
       },
+      clearPost: () => {
+        set({ post:  {
+          id: 0,
+          title: '',
+          body: ''
+      }})
+      }
   }))

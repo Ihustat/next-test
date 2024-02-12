@@ -4,10 +4,14 @@ import { IdProps } from '@/app/types';
 import { usePostStore } from "@/app/stores/postsStore";
 
 export default function PostItem(props: IdProps) {
-    const {post, fetchPost} = usePostStore()
+    const {post, fetchPost, clearPost} = usePostStore()
 
     useEffect(() => {
         fetchPost(props.id)
+
+        return () => {
+            clearPost()
+        }
     }, [])
 
     return (

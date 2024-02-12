@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 export default function PostsList() {
 
-    const {posts, isLoading, fetchPosts} = usePostsStore()
+    const {posts, fetchPosts} = usePostsStore()
   
     useEffect(() => {
         fetchPosts()

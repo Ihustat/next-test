@@ -5,11 +5,14 @@ import { IdProps } from '@/app/types';
 import { useUserStore } from '@/app/stores/usersStore';
 
 export default function UserItem(props: IdProps) {
-    const {name, fetchUser} = useUserStore()
+    const {name, fetchUser, clearUser} = useUserStore()
 
     useEffect(() => {
         fetchUser(props.id)
-        console.log(name)
+        
+        return () => {
+            clearUser()
+        }
     }, [])
 
     return (

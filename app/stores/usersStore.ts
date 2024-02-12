@@ -27,5 +27,8 @@ export const useUsersStore = create<UsersState>((set) => ({
             } catch (error) {
               console.error('Error fetching user:', error);
             }
+      },
+      clearUser: () => {
+        set({ name: '' });
       }
   }))

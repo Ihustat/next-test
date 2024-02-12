@@ -1,6 +1,7 @@
 export type UserState = {
     name: string,
-    fetchUser: (id: number) => Promise<void>;
+    fetchUser: (id: number) => Promise<void>,
+    clearUser: () => void
 }
 
 export type UsersState = {
@@ -20,7 +21,8 @@ export type PostState = {
         title: string,
         body: string
     },
-    fetchPost: (id: number) => Promise<void>;
+    fetchPost: (id: number) => Promise<void>,
+    clearPost: () => void
 }
 
 export type Props = {
